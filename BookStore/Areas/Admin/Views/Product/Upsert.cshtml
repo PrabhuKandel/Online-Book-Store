@@ -1,0 +1,119 @@
+﻿    @model ProductVM
+
+<div class="card shadow border-0 my-4 rounded">
+    <div class="card-header ml-0" style="background-color:#2c5d3f; border-bottom: 1px solid #1a2a38; padding: 1rem 0;">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white mb-0">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row g-3" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden />
+            <input asp-for="Product.ImageUrl" hidden />
+
+            <div class="col-lg-10">
+                <div class="border p-3 rounded shadow-sm">
+                    <div asp-validation-summary="None" class="mb-3"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Product.Title" class="form-control " placeholder="Product Title" />
+                        <label asp-for="Product.Title">Title</label>
+                        <span asp-validation-for="Product.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea asp-for="Product.Description" class="form-control " rows="5" placeholder="Description"></textarea>
+                        <label asp-for="Product.Description" class="form-label text-muted">Description</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Product.ISBN" class="form-control " placeholder="ISBN" />
+                        <label asp-for="Product.ISBN">ISBN</label>
+                        <span asp-validation-for="Product.ISBN" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Product.Author" class="form-control " placeholder="Author" />
+                        <label asp-for="Product.Author">Author</label>
+                        <span asp-validation-for="Product.Author" class="text-danger"></span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="form-floating col-md-4">
+                            <input asp-for="Product.ListPrice" class="form-control " placeholder="List Price" />
+                            <label asp-for="Product.ListPrice">List Price</label>
+                            <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating col-md-4">
+                            <input asp-for="Product.Price" class="form-control " placeholder="Price" />
+                            <label asp-for="Product.Price">Price</label>
+                            <span asp-validation-for="Product.Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating col-md-4">
+                            <input asp-for="Product.Price50" class="form-control " placeholder="Price 50" />
+                            <label asp-for="Product.Price50">Price 50</label>
+                            <span asp-validation-for="Product.Price50" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-floating my-3">
+                        <input asp-for="Product.Price100" class="form-control " placeholder="Price 100" />
+                        <label asp-for="Product.Price100">Price 100</label>
+                        <span asp-validation-for="Product.Price100" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select ">
+                            <option value="" disabled selected>-- Select Category --</option>
+                        </select>
+                        <label asp-for="Product.CategoryId">Category</label>
+                        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Product.ImageUrl" class="form-label">Upload Image</label>
+                        <input type="file" name="file" class="form-control \" />
+                    </div>
+
+                    <div class="row g-3 pt-3">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary form-control shadow-sm">
+                                @(Model.Product.Id != 0 ? "Update" : "Create")
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary border form-control shadow-sm">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 d-flex justify-content-center align-items-start">
+                <img src="@Model.Product.ImageUrl" alt="" class="img-fluid rounded shadow" style="max-height: 300px; border:1px solid #bbb9b9" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: [
+        
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',  'lists',  'table', 'visualblocks', 'wordcount',
+
+            'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'mentions', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+          ],
+          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | addcomment showcomments | align lineheight | checklist numlist bullist indent outdent ',
+          });
+    </script>
+
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
